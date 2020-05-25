@@ -1,3 +1,4 @@
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.http import JsonResponse
 import json
@@ -31,7 +32,6 @@ def cart(request):
 
 def checkout(request):
     data = cartData(request)
-
     cartItems = data['cartItems']
     order = data['order']
     items = data['items']
@@ -68,6 +68,7 @@ def updateItem(request):
     return JsonResponse('Item was added', safe=False)
 
 
+# @csrf_exempt
 def processOrder(request):
     transaction_id = datetime.datetime.now().timestamp()
     data = json.loads(request.body)
